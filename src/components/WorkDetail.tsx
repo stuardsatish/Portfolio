@@ -3,9 +3,10 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TiLocationArrow } from "react-icons/ti";
 import { useState, useEffect } from "react";
-import { FiCheck, FiX, FiClock, FiRefreshCw, FiStar, FiArrowRight } from "react-icons/fi";
+import { FiCheck, FiX, FiClock, FiRefreshCw, FiArrowRight } from "react-icons/fi";
 import { useParams, Link } from "react-router-dom";
-import { getPortfolioLinksFromFirebase, Project } from "../firebase";
+import { getPortfolioLinksFromFirebase, Project, storage } from "../firebase";
+import { ref, listAll, getDownloadURL } from "firebase/storage";
 import "./styles/WorkDetail.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -16,6 +17,10 @@ const WorkDetail = () => {
   const [project, setProject] = useState<Project | null>(null);
   const [dbLoading, setDbLoading] = useState(true);
   const [videoLoading, setVideoLoading] = useState(true);
+  
+  const [fetchedVideo, setFetchedVideo] = useState<string | null>(null);
+  const [fetchedThumbnail, setFetchedThumbnail] = useState<string | undefined>(undefined);
+  const [fetchedGallery, setFetchedGallery] = useState<string[]>([]);
 
   useEffect(() => {
     document.body.style.overflow = "auto";
@@ -26,6 +31,45 @@ const WorkDetail = () => {
       }
       setDbLoading(false);
     });
+  }, [index]);
+
+  useEffect(() => {
+    const fetchStorageMedia = async () => {
+      try {
+        const projectRef = ref(storage, `portfolio/project-${index}`);
+        const projectList = await listAll(projectRef);
+        
+        let videoUrl: string | null = null;
+        let thumbnailUrl: string | undefined = undefined;
+
+        for (const item of projectList.items) {
+          const name = item.name.toLowerCase();
+          if (name.endsWith('.mp4') || name.endsWith('.webm') || name.endsWith('.mov')) {
+            videoUrl = await getDownloadURL(item);
+          } else if (name.endsWith('.jpg') || name.endsWith('.jpeg') || name.endsWith('.png') || name.endsWith('.webp')) {
+            thumbnailUrl = await getDownloadURL(item);
+          }
+        }
+
+        if (videoUrl) setFetchedVideo(videoUrl);
+        if (thumbnailUrl) setFetchedThumbnail(thumbnailUrl);
+
+        try {
+          const galleryRef = ref(storage, `portfolio/project-${index}/gallery`);
+          const galleryList = await listAll(galleryRef);
+          const galleryUrls = await Promise.all(
+            galleryList.items.map(item => getDownloadURL(item))
+          );
+          setFetchedGallery(galleryUrls);
+        } catch (galleryErr) {
+          console.error("Error fetching gallery from storage:", galleryErr);
+        }
+
+      } catch (err) {
+        console.error("Error fetching from storage:", err);
+      }
+    };
+    fetchStorageMedia();
   }, [index]);
 
   const handleVideoLoad = () => {
@@ -73,7 +117,7 @@ const WorkDetail = () => {
     );
   }
 
-  const videoSrc = project.video || `/video/hero-${(index % 3) + 1}.mp4`;
+  const videoSrc = fetchedVideo || project.video || `/video/hero-${(index % 3) + 1}.mp4`;
 
   return (
     <div className="work-detail-container">
@@ -92,9 +136,11 @@ const WorkDetail = () => {
       <div id="video-frame" className="video-frame">
         <video
           src={videoSrc}
+          poster={fetchedThumbnail}
           autoPlay
           loop
           muted
+          playsInline
           className="video-bg"
           onLoadedData={handleVideoLoad}
           onError={handleVideoError}
@@ -131,20 +177,20 @@ const WorkDetail = () => {
       </h1>
 
       {/* ── Pricing Panel ─────────────────────────────────────────── */}
-      <PricingPanel project={project} />
+      <PricingPanel project={project} fetchedGallery={fetchedGallery} />
     </div>
   );
 };
 
 // ── Pricing Panel Component ───────────────────────────────────────────────
-const defaultSeller = {
-  name: "Junald A.",
-  badge: "Fiverr's Choice",
-  rating: 5.0,
-  reviewsCount: 206,
-  avatarLetter: "J",
-  hourlyRate: "US$18/hour"
-};
+// const defaultSeller = {
+//   name: "Junald A.",
+//   badge: "Fiverr's Choice",
+//   rating: 5.0,
+//   reviewsCount: 206,
+//   avatarLetter: "J",
+//   hourlyRate: "US$18/hour"
+// };
 
 const defaultAboutGig = {
   intro: "Looking for a skilled developer to design or redesign your website with a modern, clean, and high-performing layout?",
@@ -221,14 +267,16 @@ const defaultPricingTiers = [
   },
 ];
 
-const PricingPanel = ({ project }: { project: Project }) => {
+const PricingPanel = ({ project, fetchedGallery }: { project: Project; fetchedGallery: string[] }) => {
   const [activeTab, setActiveTab] = useState(0);
 
-  const seller = project.seller || defaultSeller;
-  const clientTag = project.clientTag || "🍁 Baby Boomers Cleaning";
+  // const seller = project.seller || defaultSeller;
+  // const clientTag = project.clientTag || "🍁 Baby Boomers Cleaning";
   const aboutGig = project.aboutGig || defaultAboutGig;
   const tiers = project.pricingTiers || defaultPricingTiers;
   const tier = tiers[activeTab] || tiers[0];
+
+  const gallery = fetchedGallery.length > 0 ? fetchedGallery : (project.gallery || []);
 
   return (
     <section className="pricing-section">
@@ -307,11 +355,11 @@ const PricingPanel = ({ project }: { project: Project }) => {
           </p>
 
           {/* Dynamic Project Showcase Gallery */}
-          {project.gallery && project.gallery.length > 0 && (
+          {gallery.length > 0 && (
             <div className="project-detail-gallery">
               <h3 className="gallery-section-title">📷 Project Showcase & Deliverables</h3>
               <div className="detail-gallery-grid">
-                {project.gallery.map((url, index) => (
+                {gallery.map((url, index) => (
                   <div key={index} className="detail-gallery-item">
                     <img
                       src={url}
