@@ -26,7 +26,7 @@ const Navbar = () => {
     setSmootherInstance(smoother);
 
     smoother.scrollTop(0);
-    
+
     if (isLoading) {
       smoother.paused(true);
     } else {
@@ -45,7 +45,7 @@ const Navbar = () => {
         }
       });
     });
-    
+
     const onResize = () => {
       ScrollSmoother.refresh(true);
     };
@@ -67,7 +67,7 @@ const Navbar = () => {
           className="navbar-connect"
           data-cursor="disable"
         >
-          example@mail.com
+          satish.arumugam08@gmail.com
         </a>
         <ul>
           <li>

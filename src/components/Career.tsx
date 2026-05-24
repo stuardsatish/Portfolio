@@ -15,43 +15,38 @@ const Career = () => {
           <div className="career-info-box">
             <div className="career-info-in">
               <div className="career-role">
-                <h4>Position In Company</h4>
-                <h5>Company Name</h5>
+                <h4>Project Associate</h4>
+                <h5>Cognizant · Full-time</h5>
               </div>
-              <h3>20XX</h3>
+              <h3>Present</h3>
             </div>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
-              labore sit non ipsum temporibus quidem, deserunt eaque officiis
-              mollitia ratione suscipit repellat.
+              Working on enterprise-level IT operations, incident management, and ServiceNow-based support solutions. Collaborating with cross-functional teams to improve workflow efficiency, automation, and customer support processes across multiple business applications.
+
             </p>
           </div>
           <div className="career-info-box">
             <div className="career-info-in">
               <div className="career-role">
-                <h4>Position In Company</h4>
-                <h5>Company Name</h5>
+                <h4>Senior System Engineer</h4>
+                <h5>Infosys · Full-time</h5>
               </div>
-              <h3>20XX</h3>
+              <h3>2022</h3>
             </div>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
-              labore sit non ipsum temporibus quidem, deserunt eaque officiis
-              mollitia ratione suscipit repellat.
+              Handled production support, troubleshooting, and system monitoring for enterprise applications. Worked closely with clients and internal teams to resolve technical issues, optimize performance, and maintain service reliability.
             </p>
           </div>
           <div className="career-info-box">
             <div className="career-info-in">
               <div className="career-role">
-                <h4>Position In Company</h4>
-                <h5>Company Name</h5>
+                <h4>System Engineer</h4>
+                <h5>Infosys · Full-time</h5>
               </div>
-              <h3>NOW</h3>
+              <h3>2020</h3>
             </div>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
-              labore sit non ipsum temporibus quidem, deserunt eaque officiis
-              mollitia ratione suscipit repellat.
+              Supported application maintenance, incident resolution, and operational monitoring. Contributed to system enhancements, documentation, and day-to-day technical support activities within large-scale enterprise environments.
             </p>
           </div>
         </div>

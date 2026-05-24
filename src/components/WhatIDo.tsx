@@ -90,21 +90,23 @@ const WhatIDo = () => {
               <h3>DEVELOP</h3>
               <h4>Description</h4>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
-                quia aliquid laboriosam ducimus sit molestiae.
+                Full Stack Developer building scalable web apps, REST APIs,
+                and AI-powered solutions.
               </p>
               <h5>Skillset & tools</h5>
               <div className="what-content-flex">
+                <div className="what-tags">React JS</div>
+                <div className="what-tags">Java</div>
+                <div className="what-tags">Spring Boot</div>
+                <div className="what-tags">Microservices</div>
                 <div className="what-tags">JavaScript</div>
-                <div className="what-tags">TypeScript</div>
-                <div className="what-tags">Three.js</div>
-                <div className="what-tags">React</div>
-                <div className="what-tags">Css</div>
-                <div className="what-tags">Node.js</div>
-                <div className="what-tags">Next.js</div>
-                <div className="what-tags">Express.js</div>
-                <div className="what-tags">PHP</div>
-                <div className="what-tags">MySql</div>
+                <div className="what-tags">REST APIs</div>
+                <div className="what-tags">Hibernate</div>
+                <div className="what-tags">PostgreSQL</div>
+                <div className="what-tags">Docker</div>
+                <div className="what-tags">Kubernetes</div>
+                <div className="what-tags">Git</div>
+                <div className="what-tags">FastAPI</div>
               </div>
               <div className="what-arrow"></div>
             </div>
@@ -128,22 +130,26 @@ const WhatIDo = () => {
             </div>
             <div className="what-corner"></div>
             <div className="what-content-in">
-              <h3>DESIGN</h3>
+              <h3>AI & AUTOMATION</h3>
               <h4>Description</h4>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
-                quia aliquid laboriosam ducimus sit molestiae
+                Built AI-powered automation tools using FastAPI, OpenAI GPT,
+                and ServiceNow.
               </p>
               <h5>Skillset & tools</h5>
               <div className="what-content-flex">
-                <div className="what-tags">Blender</div>
-                <div className="what-tags">Zbrush</div>
-                <div className="what-tags">UI Design</div>
-                <div className="what-tags">Motion</div>
-                <div className="what-tags">Rigging</div>
-                <div className="what-tags">3D Animation</div>
-                <div className="what-tags">Character Design</div>
-                <div className="what-tags">Modelling</div>
+                <div className="what-tags">Python</div>
+                <div className="what-tags">FastAPI</div>
+                <div className="what-tags">OpenAI GPT</div>
+                <div className="what-tags">FAISS</div>
+                <div className="what-tags">ServiceNow</div>
+                <div className="what-tags">Sentence Transformers</div>
+                <div className="what-tags">REST APIs</div>
+                <div className="what-tags">GlideAjax</div>
+                <div className="what-tags">Script Includes</div>
+                <div className="what-tags">Git</div>
+                <div className="what-tags">Automation</div>
+                <div className="what-tags">AI Assistant</div>
               </div>
               <div className="what-arrow"></div>
             </div>
