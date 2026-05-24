@@ -89,6 +89,7 @@ const Work = () => {
                 <p>Javascript, TypeScript, React, Threejs</p>
               </div>
               <WorkImage 
+                index={index}
                 image={portfolio.img || "/images/placeholder.webp"} 
                 alt={portfolio.title} 
                 video={portfolio.video}

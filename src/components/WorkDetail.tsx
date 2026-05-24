@@ -199,7 +199,26 @@ const WorkDetail = () => {
       </div>
 
       {/* ── Pricing Panel ─────────────────────────────────────────── */}
-      <PricingPanel project={project} fetchedGallery={fetchedGallery} />
+      <PricingPanel project={project} />
+
+      {/* Dynamic Project Showcase Gallery */}
+      {fetchedGallery.length > 0 && (
+        <div className="project-detail-gallery">
+          <h3 className="gallery-section-title">📷 Project Showcase & Deliverables</h3>
+          <div className="detail-gallery-grid">
+            {fetchedGallery.map((url, idx) => (
+              <div key={idx} className="detail-gallery-item">
+                <img
+                  src={url}
+                  alt={`${project.title} screenshot ${idx + 1}`}
+                  onClick={() => window.open(url, '_blank')}
+                  title="Click to view full size"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -289,7 +308,7 @@ const defaultPricingTiers = [
   },
 ];
 
-const PricingPanel = ({ project, fetchedGallery }: { project: Project; fetchedGallery: string[] }) => {
+const PricingPanel = ({ project }: { project: Project }) => {
   const [activeTab, setActiveTab] = useState(0);
 
   // const seller = project.seller || defaultSeller;
@@ -297,8 +316,6 @@ const PricingPanel = ({ project, fetchedGallery }: { project: Project; fetchedGa
   const aboutGig = project.aboutGig || defaultAboutGig;
   const tiers = project.pricingTiers || defaultPricingTiers;
   const tier = tiers[activeTab] || tiers[0];
-
-  const gallery = fetchedGallery.length > 0 ? fetchedGallery : (project.gallery || []);
 
   return (
     <section className="pricing-section">
@@ -375,25 +392,6 @@ const PricingPanel = ({ project, fetchedGallery }: { project: Project; fetchedGa
           <p className="about-gig-text footer-outro">
             {aboutGig.outro}
           </p>
-
-          {/* Dynamic Project Showcase Gallery */}
-          {gallery.length > 0 && (
-            <div className="project-detail-gallery">
-              <h3 className="gallery-section-title">📷 Project Showcase & Deliverables</h3>
-              <div className="detail-gallery-grid">
-                {gallery.map((url, index) => (
-                  <div key={index} className="detail-gallery-item">
-                    <img
-                      src={url}
-                      alt={`${project.title} screenshot ${index + 1}`}
-                      onClick={() => window.open(url, '_blank')}
-                      title="Click to view full size"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </div>
 
