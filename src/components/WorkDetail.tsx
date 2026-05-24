@@ -17,7 +17,7 @@ const WorkDetail = () => {
   const [project, setProject] = useState<Project | null>(null);
   const [dbLoading, setDbLoading] = useState(true);
   const [videoLoading, setVideoLoading] = useState(true);
-  
+
   const [fetchedVideo, setFetchedVideo] = useState<string | null>(null);
   const [fetchedThumbnail, setFetchedThumbnail] = useState<string | undefined>(undefined);
   const [fetchedGallery, setFetchedGallery] = useState<string[]>([]);
@@ -38,7 +38,7 @@ const WorkDetail = () => {
       try {
         const projectRef = ref(storage, `portfolio/project-${index}`);
         const projectList = await listAll(projectRef);
-        
+
         let videoUrl: string | null = null;
         let thumbnailUrl: string | undefined = undefined;
 
@@ -121,9 +121,9 @@ const WorkDetail = () => {
 
   return (
     <div className="work-detail-container">
-      <Link to="/" className="back-btn">
+      {/* <Link to="/" className="back-btn">
         &larr; Back
-      </Link>
+      </Link> */}
 
       {videoLoading && (
         <div className="loading-screen">
@@ -150,7 +150,7 @@ const WorkDetail = () => {
           {project.title}
         </h1> */}
 
-        <div className="hero-content">
+        {/* <div className="hero-content">
           <div className="hero-content-inner">
             <h1 className="hero-heading-fg special-font">
               {project.title}
@@ -169,12 +169,34 @@ const WorkDetail = () => {
               <TiLocationArrow /> Visit Project
             </a>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <h1 className="hero-heading-base special-font">
         {project.title}
       </h1>
+
+      <div style={{ display: "flex", justifyContent: "center", gap: "1rem", margin: "2rem 0" }}>
+        <a
+          href={project.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="visit-btn"
+        >
+          <TiLocationArrow /> Visit Project
+        </a>
+        {project.youtubeLink && (
+          <a
+            href={project.youtubeLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="visit-btn"
+            style={{ backgroundColor: "#ff0000", color: "#fff" }}
+          >
+            <TiLocationArrow /> View Full Video
+          </a>
+        )}
+      </div>
 
       {/* ── Pricing Panel ─────────────────────────────────────────── */}
       <PricingPanel project={project} fetchedGallery={fetchedGallery} />

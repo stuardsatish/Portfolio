@@ -37,6 +37,7 @@ const AdminPanel = () => {
   const [link, setLink] = useState("");
   const [img, setImg] = useState("");
   const [video, setVideo] = useState("");
+  const [youtubeLink, setYoutubeLink] = useState("");
 
   // Seller
   const [sellerName, setSellerName] = useState("");
@@ -92,6 +93,7 @@ const AdminPanel = () => {
     setLink("");
     setImg("/images/work-new.webp");
     setVideo("/video/hero-new.mp4");
+    setYoutubeLink("");
 
     setSellerName("Junald A.");
     setSellerBadge("Fiverr's Choice");
@@ -264,6 +266,7 @@ const AdminPanel = () => {
     setLink(p.link || "");
     setImg(p.img || "");
     setVideo(p.video || "");
+    setYoutubeLink(p.youtubeLink || "");
 
     const s = p.seller || { name: "", badge: "", rating: 5, reviewsCount: 0, avatarLetter: "J", hourlyRate: "" };
     setSellerName(s.name || "");
@@ -369,6 +372,7 @@ const AdminPanel = () => {
       link,
       img,
       video,
+      youtubeLink,
       seller: {
         name: sellerName,
         badge: sellerBadge,
@@ -577,6 +581,17 @@ const AdminPanel = () => {
                   />
                 </label>
               </div>
+            </div>
+          </div>
+          <div className="admin-row">
+            <div className="admin-group">
+              <label>Youtube Link / Full Video Link</label>
+              <input
+                type="url"
+                value={youtubeLink}
+                onChange={(e) => setYoutubeLink(e.target.value)}
+                placeholder="https://www.youtube.com/watch?v=..."
+              />
             </div>
           </div>
         </fieldset>

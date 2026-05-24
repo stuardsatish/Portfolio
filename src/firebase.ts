@@ -71,6 +71,7 @@ export interface Project {
   aboutGig?: AboutGig;
   pricingTiers?: PricingTier[];
   gallery?: string[];
+  youtubeLink?: string;
 }
 
 // Function to fetch all projects from Firestore (sorted by index)
