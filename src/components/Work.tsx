@@ -70,8 +70,8 @@ const Work = () => {
         </h2>
         <div className="work-flex">
           {projects.map((portfolio, index) => (
-            <div 
-              className="work-box" 
+            <div
+              className="work-box"
               key={index}
               onClick={() => navigate(`/work-detail/${index}`)}
               data-cursor="icons"
@@ -86,12 +86,12 @@ const Work = () => {
                   </div>
                 </div>
                 <h4>Tools and features</h4>
-                <p>Javascript, TypeScript, React, Threejs</p>
+                <p>React, Javascript, Tailwind, GSAP</p>
               </div>
-              <WorkImage 
+              <WorkImage
                 index={index}
-                image={portfolio.img || "/images/placeholder.webp"} 
-                alt={portfolio.title} 
+                image={portfolio.img || "/images/placeholder.webp"}
+                alt={portfolio.title}
                 video={portfolio.video}
               />
             </div>
